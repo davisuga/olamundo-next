@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
     return (
         <div className={styles.container}>
-            <Head>Olá, mundo!</Head>
+            <h1>Olá, mundo!</h1>
         </div>
     );
 }
