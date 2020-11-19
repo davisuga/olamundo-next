@@ -1,10 +1,11 @@
 import React from "react";
-import Header from "../../components/Header";
-import Form from "../../components/LoginForm";
-import api from "../../services/axios";
-import { Container, Content } from "./styles";
+import Header from "../components/Header";
+import Form from "../components/LoginForm";
+import api from "../services/axios";
+import { Container, Content } from "../styles/pages/login";
 
 function Login() {
+    
     const onSubmit = async (email, password) => {
         const theresEmailInDB = await api.get("user", { params: { email } });
         alert(JSON.stringify(theresEmailInDB.data.length));

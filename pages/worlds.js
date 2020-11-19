@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import BotãoMundo from "../../components/BotãoMundo";
-import Input from "../../components/Input";
+import BotãoMundo from "../components/BotãoMundo";
+import Input from "../components/Input";
 
 function Worlds() {
     const fetchWorlds = async () => {

@@ -1,38 +1,32 @@
 import React, { useEffect, useState } from "react";
-import HeaderButton from "../../components/HeaderButton";
-import Form from "../../components/RegisterForm";
-import { Button } from "../../components/RegisterForm/styles";
-import api from "../../services/axios";
-import Header from "../../components/Header";
-import { Container, Content, Presentation } from "./styles";
+import HeaderButton from "../components/HeaderButton";
+import Form from "../components/RegisterForm";
+import { Button } from "../components/RegisterForm/styles";
+import api from "../services/axios";
+import Header from "../components/Header";
+import { Container, Content, Presentation } from "../styles/pages/home";
+import { useAuth } from "../context/auth";
 
 function Home() {
-    const [logged, setLogged] = useState(false);
+    const { setAuth } = useAuth();
+
     const registerUser = async (email, name, password) => {
         try {
             const result = await api.post("progress", {
                 user: { create: { email, password, name } },
             });
-            localStorage.setItem("logged", "true");
+            setAuth(true);
             localStorage.setItem(
                 "userdata",
                 JSON.stringify({ email, password, name })
             );
+            setAuth(true)
+
             window.location = "/worlds";
-            alert(result);
-            setLogged(true);
         } catch (err) {
             alert("esse email já existe!");
         }
     };
-    const goToWorlds = () => {
-        window.location = "/worlds";
-    };
-    useEffect(() => {
-        console.log("api singleton: ", api);
-        const islogged = JSON.parse(localStorage.getItem("logged"));
-        logged && goToWorlds();
-    }, [logged]);
 
     return (
         <div className="Home">

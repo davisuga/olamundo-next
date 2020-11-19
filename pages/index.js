@@ -1,10 +1,14 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import Home from "./_home";
+import { useAuth } from "../context/auth";
+import { useRouter } from "next/router";
 
-export default function Home() {
+export default function App() {
+    const { auth } = useAuth();
+    const router = useRouter();
     return (
-        <div className={styles.container}>
-            <h1>Olá, mundo!</h1>
-        </div>
+        <>
+            {!auth && <Home />}
+            {auth && router.replace("/worlds")}
+        </>
     );
 }
