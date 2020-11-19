@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Input, Container, Title, Button } from "../RegisterForm/styles";
+import { Input, FormContainer, Title, Button } from "../../styles/pages/login/styles";
 function Form({ onSubmit }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    
+  
     return (
         <Container>
             <Title>Login</Title>
@@ -19,7 +17,9 @@ function Form({ onSubmit }) {
                 placeholder="senha"
                 type="password"
             />
-            <Button onClick={() => onSubmit(email, password)}>Entrar</Button>
+            <Button type="submit" onClick={() => onSubmit(email, password)}>
+                Entrar
+            </Button>
         </Container>
     );
 }

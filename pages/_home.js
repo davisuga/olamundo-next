@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HeaderButton from "../components/HeaderButton";
 import Form from "../components/RegisterForm";
-import { Button } from "../components/RegisterForm/styles";
 import api from "../services/axios";
 import Header from "../components/Header";
 import { Container, Content, Presentation } from "../styles/pages/home";
@@ -20,7 +19,7 @@ function Home() {
                 "userdata",
                 JSON.stringify({ email, password, name })
             );
-            setAuth(true)
+            setAuth(true);
 
             window.location = "/worlds";
         } catch (err) {

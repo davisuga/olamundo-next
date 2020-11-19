@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Input, Container, Title, Button } from "./styles";
+import {
+    Input,
+    FormContainer,
+    Title,
+    SubmitButton,
+} from "../../styles/pages/login";
 
 function Form({ onSubmit }) {
     const [email, setEmail] = useState("");
@@ -8,7 +13,7 @@ function Form({ onSubmit }) {
     const [name, setName] = useState("");
 
     return (
-        <Container>
+        <FormContainer>
             <Title>Registre-se</Title>
             <Input
                 onChange={({ target }) => setName(target.value)}
@@ -33,13 +38,13 @@ function Form({ onSubmit }) {
                 type="password"
                 required
             />
-            <Button
+            <SubmitButton
                 type="submit"
                 onClick={(e) => onSubmit(email, name, password)}
             >
                 Comece agora
-            </Button>
-        </Container>
+            </SubmitButton>
+        </FormContainer>
     );
 }
 
