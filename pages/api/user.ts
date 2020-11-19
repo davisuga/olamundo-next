@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 const find_all = async (req: NextApiRequest, res: NextApiResponse) => {
     const { email } = req.query;
     const result = await prisma.user.findMany({
+        //@ts-ignore
         where: { email: email },
     });
     res.json(result);
@@ -15,6 +16,7 @@ const find_all = async (req: NextApiRequest, res: NextApiResponse) => {
 const find_one = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const result = await prisma.user.findOne({
+            //@ts-ignore
             where: { id: parseInt(req.query.id) },
         });
         res.json(result);
@@ -37,6 +39,7 @@ const create_one = async (req: NextApiRequest, res: NextApiResponse) => {
 const delete_one = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const result = await prisma.user.delete({
+            //@ts-ignore
             where: { id: parseInt(req.query.id) },
         });
         res.json(result);
@@ -48,6 +51,7 @@ const delete_one = async (req: NextApiRequest, res: NextApiResponse) => {
 const update_one = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const result = await prisma.user.update({
+            //@ts-ignore
             where: { id: parseInt(req.query.id) },
             data: req.body,
         });
