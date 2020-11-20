@@ -50,3 +50,15 @@ body {
     font-family: JetBrainsMono, monospace;
     color: #fff;
 }
+.lesson > h2 {
+    font-size: 42px;
+    color: yellow;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.lesson > p {
+    margin: 8px;
+}
+.lesson {
+    margin: 8rem;
+}

@@ -13,7 +13,7 @@ export const Input = styled.input`
 
     color: #fff;
 `;
-export const Container = styled.form`
+export const Container = styled.div`
     background: rgb(32, 32, 36);
     border-radius: 8px;
     display: flex;
