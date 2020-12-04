@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 datasource db {
   provider = "postgres"
-  url      = "postgresql://postgres:123@localhost:5432/olamundo?schema=olamundo"
+  url = "***"
 }
 
 generator client {
@@ -25,9 +25,6 @@ model Lesson {
   url         String
   Progress    Progress[]
   exercises Exercise[]
-  world       World   @relation(fields: [worldId], references: [id])
-  worldId Int
-   
 }
 
 model Exercise {
@@ -50,10 +47,4 @@ model Progress {
   end_datetime DateTime?
   lesson       Lesson?   @relation(fields: [lessonId], references: [id])
   lessonId     Int?
-}
-
-model World {
-  id           Int       @id @default(autoincrement())
-  lesson Lesson[]
-  name String
 }

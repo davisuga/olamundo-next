@@ -10,9 +10,17 @@ type ExerciseProperties = {
 };
 const Exercise = ({ content, exercise }) => {
     const router = useRouter();
+    console.log("exercise: ", exercise);
+
     return (
         <div>
             <ReactMarkdown className="exercise" children={content} />
+            {exercise.choices.map((choice) => (
+                <div>
+                    <input type="checkbox" />
+                    {choice}
+                </div>
+            ))}
             <NextButton onClick={() => router.push("/exercise")}>
                 Próximo
             </NextButton>
@@ -24,19 +32,22 @@ export const getStaticPaths = async () => {
     const exercises = res.data;
     console.log(`exercises: `, exercises);
     const paths = exercises.map((exercise: ExerciseProperties) => ({
-        params: { world: JSON.stringify(exercise.id) },
+        params: { exercise: JSON.stringify(exercise.id) },
     }));
     return { paths, fallback: true };
 };
 
 export const getStaticProps = async ({ params }) => {
-    const res = await api.get(`/exercise?id=${params.world}`);
+    console.log("the params: ", params);
+    const res = await api.get(`/exercise?id=${params.exercise}`);
     const exercise = res.data;
-    const contentRes = await fetch(
-        `https://raw.githubusercontent.com/davisuga/olamundo-exercises/master/exercise${params.world}.md`
-    );
-    const content = await contentRes.text();
-    console.log(content);
-    return { props: { content, exercise } };
+    try {
+        const contentRes = await fetch(exercise.url);
+        const content = await contentRes.text();
+        console.log(content);
+        return { props: { content, exercise } };
+    } catch (err) {
+        return { props: { content: {}, exercise } };
+    }
 };
 export default Exercise;

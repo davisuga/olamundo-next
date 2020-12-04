@@ -1,7 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 datasource db {
-  provider = "sqlite"
+  provider = "postgres"
   url = "***"
 }
 
@@ -24,6 +24,10 @@ model Lesson {
   description String
   url         String
   Progress    Progress[]
+  exercises Exercise[]
+  world       World   @relation(fields: [worldId], references: [id])
+  worldId Int
+   
 }
 
 model Exercise {
@@ -33,6 +37,9 @@ model Exercise {
   url         String
   answer      String
   grade       Int
+  lesson Lesson @relation(fields: [lessonId], references:[id])
+  lessonId Int
+  choices String[]
 }
 
 model Progress {
@@ -40,8 +47,12 @@ model Progress {
   user         User?     @relation(fields: [user_id], references: [id])
   user_id      Int?
   start_id     DateTime  @default(now())
-  final_grade  Int?
   end_datetime DateTime?
   lesson       Lesson?   @relation(fields: [lessonId], references: [id])
   lessonId     Int?
+}
+
+model World {
+  id           Int       @id @default(autoincrement())
+  lesson Lesson[]
 }

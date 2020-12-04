@@ -12,7 +12,7 @@
         "source": "db"
       },
       "argument": "provider",
-      "value": "\"sqlite\""
+      "value": "\"postgres\""
     },
     {
       "tag": "CreateArgument",
@@ -185,6 +185,13 @@
       "arity": "List"
     },
     {
+      "tag": "CreateField",
+      "model": "Lesson",
+      "field": "exercises",
+      "type": "Exercise",
+      "arity": "List"
+    },
+    {
       "tag": "CreateModel",
       "model": "Exercise"
     },
@@ -265,6 +272,66 @@
       "field": "grade",
       "type": "Int",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Exercise",
+      "field": "lesson",
+      "type": "Lesson",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Exercise",
+          "field": "lesson"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Exercise",
+          "field": "lesson"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[lessonId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Exercise",
+          "field": "lesson"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Exercise",
+      "field": "lessonId",
+      "type": "Int",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Exercise",
+      "field": "choices",
+      "type": "String",
+      "arity": "List"
     },
     {
       "tag": "CreateModel",
@@ -397,13 +464,6 @@
       },
       "argument": "",
       "value": "now()"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Progress",
-      "field": "final_grade",
-      "type": "Int",
-      "arity": "Optional"
     },
     {
       "tag": "CreateField",

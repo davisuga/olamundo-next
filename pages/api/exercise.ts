@@ -4,15 +4,22 @@ import build_handler from "./_utils";
 const prisma = new PrismaClient();
 
 const find_all = async (req: any, res: any) => {
-    const result = await prisma.exercise.findMany();
+    const lessonId = req.query?.lessonId;
+    console.log("searching exercises on lesson id ", lessonId);
+    const result = await prisma.exercise.findMany(
+        lessonId && { where: { lessonId: parseInt(lessonId) } }
+    );
     res.json(result);
 };
 
 const find_one = async (req: any, res: any) => {
     try {
         const result = await prisma.exercise.findOne({
-            where: { id: parseInt(req.query.id) },
+            where: {
+                id: parseInt(req.query.id),
+            },
         });
+
         res.json(result);
     } catch (error) {
         res.status(400);

@@ -4,18 +4,22 @@ import build_handler from "./_utils";
 const prisma = new PrismaClient();
 
 const find_all = async (req: any, res: any) => {
-    const result = await prisma.lesson.findMany({
+    const result = await prisma.world.findMany({
         orderBy: {
-            title: "asc",
+            name: "asc",
         },
     });
     res.json(result);
 };
 const find_one = async (req: any, res: any) => {
     try {
-        const result = await prisma.lesson.findOne({
-            where: { id: parseInt(req.query.id) },
-        });
+        const result = await prisma.world
+            .findOne({
+                where: { id: parseInt(req.query.id) },
+            })
+            .lesson({
+                orderBy: { title: "asc" },
+            });
         res.json(result);
     } catch (error) {
         res.status(400);
@@ -24,7 +28,7 @@ const find_one = async (req: any, res: any) => {
 };
 const create_one = async (req: any, res: any) => {
     try {
-        const result = await prisma.lesson.create({
+        const result = await prisma.world.create({
             data: req.body,
         });
         res.json(result);
@@ -35,7 +39,7 @@ const create_one = async (req: any, res: any) => {
 };
 const delete_one = async (req: any, res: any) => {
     try {
-        const result = await prisma.lesson.delete({
+        const result = await prisma.world.delete({
             where: { id: parseInt(req.query.id) },
         });
         res.json(result);
@@ -46,7 +50,7 @@ const delete_one = async (req: any, res: any) => {
 };
 const update_one = async (req: any, res: any) => {
     try {
-        const result = await prisma.lesson.update({
+        const result = await prisma.world.update({
             where: { id: parseInt(req.query.id) },
             data: req.body,
         });
