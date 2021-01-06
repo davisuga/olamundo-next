@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 datasource db {
   provider = "postgres"
-  url      = "postgresql://postgres:123@localhost:5432/olamundo?schema=olamundo"
+  url      = "postgresql://postgres:olamundo@localhost/postgres?schema=olamundo"
 }
 
 generator client {
@@ -24,22 +24,28 @@ model Lesson {
   description String
   url         String
   Progress    Progress[]
-  exercises Exercise[]
-  world       World   @relation(fields: [worldId], references: [id])
-  worldId Int
-   
+  exercises   Exercise[]
+  world       World      @relation(fields: [worldId], references: [id])
+  worldId     Int
+
+}
+
+enum ExerciseType {
+  multiple_choice
+  text
 }
 
 model Exercise {
-  id          Int    @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   title       String
   description String
   url         String
   answer      String
   grade       Int
-  lesson Lesson @relation(fields: [lessonId], references:[id])
-  lessonId Int
-  choices String[]
+  lesson      Lesson        @relation(fields: [lessonId], references: [id])
+  lessonId    Int
+  choices     String[]
+  type        ExerciseType?
 }
 
 model Progress {
@@ -53,7 +59,7 @@ model Progress {
 }
 
 model World {
-  id           Int       @id @default(autoincrement())
+  id     Int      @id @default(autoincrement())
   lesson Lesson[]
-  name String
+  name   String
 }
