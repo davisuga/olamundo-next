@@ -1,9 +1,10 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Heading, Text, Flex } from "@chakra-ui/react";
 import { World } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import MotionBox from "../../components/MotionBox";
 
 import api from "../../services/axios";
 
@@ -21,27 +22,41 @@ function Worlds({ worlds }: Props) {
     console.log(worldsIds);
     dispatch({ type: "SET_WORLDS", worlds: worldsIds });
   }, []);
+  const colors = ["yellow.500", "green.500", "blue.500", "purple.500"];
   return (
     <div>
-      {worlds &&
-        worlds.map((world) => {
-          return (
-            <Link href={"/worlds/" + world.id}>
-              <Box
-                h={200}
-                w={200}
-                m={5}
-                bg="blue.500"
-                textAlign="center"
-                borderWidth="1px"
-                borderRadius="lg"
-                key={world.id}
-              >
-                {world.name}
-              </Box>
-            </Link>
-          );
-        })}
+      <Heading textAlign="center" alignSelf="center" size="xl">
+        Mundos
+      </Heading>
+      <Flex flexDir="row" justifyContent="center" alignItems="center">
+        {worlds &&
+          worlds.map((world) => {
+            return (
+              <Link href={"/worlds/" + world.id}>
+                <MotionBox
+                  display="flex"
+                  h={200}
+                  w={200}
+                  m={5}
+                  bg={colors[worlds.indexOf(world)]}
+                  textAlign="center"
+                  justifyContent="center"
+                  alignItems="center"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  boxShadow="lg"
+                  key={world.id}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Text fontWeight="bold" fontSize="2xl">
+                    {world.name}
+                  </Text>
+                </MotionBox>
+              </Link>
+            );
+          })}
+      </Flex>
 
       <Button
         onClick={(e) => {

@@ -3,7 +3,7 @@ import api from "../../services/axios";
 import { GetStaticProps, GetStaticPaths } from "next";
 import { useToast, Textarea, Radio, RadioGroup } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, Box } from "@chakra-ui/react";
 import { getExercise } from "../../utils/getExercises";
 import { useSelector } from "react-redux";
 import exercise from "../api/exercise";
@@ -106,7 +106,7 @@ const ExercisePage = ({ exercises }: { exercises: Exercise[] }) => {
   };
 
   return (
-    <div>
+    <Box m="32">
       <div
         className="exercise"
         dangerouslySetInnerHTML={{
@@ -122,6 +122,7 @@ const ExercisePage = ({ exercises }: { exercises: Exercise[] }) => {
           {exercise?.choices.map((choice) => (
             <div>
               <Radio
+                m="3"
                 key={choice}
                 //value={currentSelection}
                 value={exercise.choices.indexOf(choice).toString()}
@@ -155,7 +156,7 @@ const ExercisePage = ({ exercises }: { exercises: Exercise[] }) => {
           CHECAR RESULTADO
         </Button>
       )}
-    </div>
+    </Box>
   );
 };
 

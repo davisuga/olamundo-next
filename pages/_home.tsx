@@ -5,23 +5,21 @@ import { Button } from "../components/RegisterForm/styles";
 import api from "../services/axios";
 import Header from "../components/Header";
 import { Container, Content, Presentation } from "../styles/pages/home";
-import { useAuth } from "../context/auth";
 import { useRouter } from "next/router";
 
 function Home() {
-  const { setAuth } = useAuth();
   const router = useRouter();
   const registerUser = async (email, name, password) => {
     try {
       const result = await api.post("progress", {
         user: { create: { email, password, name } },
       });
-      setAuth(true);
+
       localStorage.setItem(
         "userdata",
         JSON.stringify({ email, password, name })
       );
-      setAuth(true);
+
       router.push("/worlds");
     } catch (err) {
       alert("esse email já existe!");

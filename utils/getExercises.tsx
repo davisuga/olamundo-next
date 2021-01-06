@@ -4,9 +4,17 @@ import remark from "remark";
 import remarkHTML from "remark-html";
 
 export const getExercise = (filename: string) => {
-  const fileContent = fs.readFileSync(
-    `./content/olamundo-exercises/${filename}.md`
-  );
+  let fileContent: Buffer = Buffer.from("");
+  try {
+    fileContent = fs.readFileSync(
+      `./content/olamundo-exercises/${filename}.md`
+    );
+  } catch {
+    fs.writeFileSync(
+      `./content/olamundo-exercises/${filename}.md`,
+      fileContent
+    );
+  }
   const { content, data: metadata } = grayMatter(fileContent);
   const htmlContent = remark().use(remarkHTML).processSync(content).toString();
 

@@ -4,9 +4,10 @@ import React, { useEffect, useState } from "react";
 import Input from "../../../components/Input";
 import api from "../../../services/axios";
 import Link from "next/link";
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Heading, Flex } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
-import { Lesson, LessonAvgAggregateInputType } from "@prisma/client";
+import { Lesson } from "@prisma/client";
+import MotionBox from "../../../components/MotionBox";
 
 type Props = {
   lessons: Lesson[];
@@ -23,22 +24,48 @@ function Lessons({ lessons }: Props) {
   console.log("lessons inside the component: ", lessons);
   return (
     <div>
-      {lessons &&
-        lessons.map((lesson) => {
-          return (
-            <Link
-              href={{
-                pathname: "/worlds/[world]/lessons/[lesson]",
-                query: {
-                  world: lessons[0].worldId,
-                  lesson: lesson.id,
-                },
-              }}
-            >
-              <Box key={lesson.id}>{lesson.title}</Box>
-            </Link>
-          );
-        })}
+      <Heading textAlign="center" alignSelf="center" size="xl">
+        Licoes
+      </Heading>
+      <Flex justifyContent="center" alignItems="center" flexDir="row">
+        {lessons &&
+          lessons.map((lesson) => {
+            return (
+              <Link
+                href={{
+                  pathname: "/worlds/[world]/lessons/[lesson]",
+                  query: {
+                    world: lessons[0].worldId,
+                    lesson: lesson.id,
+                  },
+                }}
+              >
+                <MotionBox
+                  display="flex"
+                  h={200}
+                  w={200}
+                  m={5}
+                  textAlign="center"
+                  justifyContent="center"
+                  alignItems="center"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  boxShadow="lg"
+                  bg="blue.500"
+                  key={lesson.id}
+                  _hover={{
+                    bg: "white",
+                    color: "blue.500",
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {lesson.title}
+                </MotionBox>
+              </Link>
+            );
+          })}
+      </Flex>
       <button
         onClick={(e) => {
           localStorage.setItem("logged", "false");
@@ -55,7 +82,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   console.log("searching for lessons...");
   const lessons = await api.get<Lesson>(`/world?id=${context.params.world}`);
 
-  return { props: { lessons: lessons.data } };
+  return { props: { lessons: lessons.data, world: context.params.world } };
 };
 export const getStaticPaths = async (context) => {
   console.log();

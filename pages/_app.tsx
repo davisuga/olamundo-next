@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { Provider } from "react-redux";
 import { useStore } from "../store";
-import AuthProvider from "../context/auth";
+
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
@@ -18,14 +18,12 @@ export default function App({ Component, pageProps }) {
     persistor.persist();
   });
   return (
-    <AuthProvider>
-      <Provider store={store}>
-        <ChakraProvider theme={customTheme}>
-          <PersistGate loading={<div>loading</div>} persistor={persistor}>
-            <Component {...pageProps} />
-          </PersistGate>
-        </ChakraProvider>
-      </Provider>
-    </AuthProvider>
+    <Provider store={store}>
+      <ChakraProvider theme={customTheme}>
+        <PersistGate loading={<div>loading</div>} persistor={persistor}>
+          <Component {...pageProps} />
+        </PersistGate>
+      </ChakraProvider>
+    </Provider>
   );
 }

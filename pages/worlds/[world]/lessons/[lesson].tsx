@@ -19,7 +19,10 @@ const Lesson = ({ lesson, exercises }: LessonPage) => {
   }, []);
   return (
     <div>
-      <div dangerouslySetInnerHTML={{ __html: lesson.content }} />
+      <div
+        className="lesson"
+        dangerouslySetInnerHTML={{ __html: lesson.content }}
+      />
       <br />
       Exercícios:
       <Link
