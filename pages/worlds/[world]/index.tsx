@@ -27,7 +27,12 @@ function Lessons({ lessons }: Props) {
       <Heading textAlign="center" alignSelf="center" size="xl">
         Licoes
       </Heading>
-      <Flex justifyContent="center" alignItems="center" flexDir="row">
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        flexWrap="wrap"
+        flexDir="row"
+      >
         {lessons &&
           lessons.map((lesson) => {
             return (
@@ -43,7 +48,7 @@ function Lessons({ lessons }: Props) {
                 <MotionBox
                   display="flex"
                   h={200}
-                  w={200}
+                  w={["90%", 200]}
                   m={5}
                   textAlign="center"
                   justifyContent="center"

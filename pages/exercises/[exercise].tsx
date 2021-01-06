@@ -105,7 +105,7 @@ const ExercisePage = ({ exercises }: { exercises: Exercise[] }) => {
   };
 
   return (
-    <Box m="32">
+    <Box m={[5, 12, 32]}>
       <div
         className="exercise"
         dangerouslySetInnerHTML={{

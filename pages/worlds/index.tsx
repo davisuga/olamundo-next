@@ -28,7 +28,12 @@ function Worlds({ worlds }: Props) {
       <Heading textAlign="center" alignSelf="center" size="xl">
         Mundos
       </Heading>
-      <Flex flexDir="row" justifyContent="center" alignItems="center">
+      <Flex
+        flexDir="row"
+        justifyContent="center"
+        alignItems="center"
+        flexWrap="wrap"
+      >
         {worlds &&
           worlds.map((world) => {
             return (
@@ -36,7 +41,7 @@ function Worlds({ worlds }: Props) {
                 <MotionBox
                   display="flex"
                   h={200}
-                  w={200}
+                  w={["90%", 200]}
                   m={5}
                   bg={colors[worlds.indexOf(world)]}
                   textAlign="center"

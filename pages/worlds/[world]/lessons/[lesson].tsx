@@ -6,7 +6,7 @@ import Link from "next/link";
 import { getLesson } from "../../../../utils/getLessons";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Button } from "@chakra-ui/react";
+import { Button, Box } from "@chakra-ui/react";
 type LessonPage = {
   lesson: Lesson;
   exercises: Exercise[];
@@ -18,8 +18,8 @@ const Lesson = ({ lesson, exercises }: LessonPage) => {
     dispatch({ type: "SET_LESSON", lesson: lesson.id });
   }, []);
   return (
-    <div>
-      <div
+    <Box m={[5, 12, 32]}>
+      <Box
         className="lesson"
         dangerouslySetInnerHTML={{ __html: lesson.content }}
       />
@@ -35,7 +35,7 @@ const Lesson = ({ lesson, exercises }: LessonPage) => {
       >
         <Button>{exercises[0].title}</Button>
       </Link>
-    </div>
+    </Box>
   );
 };
 

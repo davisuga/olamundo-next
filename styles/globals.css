@@ -52,7 +52,7 @@ body {
 }
 .lesson > h2,
 .exercise > h2 {
-  font-size: 42px;
+  font-size: 2em;
   color: greenyellow;
   font-weight: bold;
   margin-bottom: 10px;
@@ -60,9 +60,7 @@ body {
 .lesson > p {
   margin: 8px;
 }
-.lesson {
-  margin: 8rem;
-}
+
 #__next > div > div > pre > code {
   background: #141922;
   padding: 5px;
