@@ -50,9 +50,10 @@ body {
   font-family: JetBrains Mono, monospace !important;
   color: #fff;
 }
-.lesson > h2 {
+.lesson > h2,
+.exercise > h2 {
   font-size: 42px;
-  color: yellow;
+  color: greenyellow;
   font-weight: bold;
   margin-bottom: 10px;
 }

@@ -59,7 +59,6 @@ const ExercisePage = ({ exercises }: { exercises: Exercise[] }) => {
     !allExercisesDone &&
       setExercise(exercises[exercises.indexOf(exercise) + 1]);
     setExerciseDone(false);
-    setCurrentSelection("");
   };
 
   const handleRightAnswer = () => {

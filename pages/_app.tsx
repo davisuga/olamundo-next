@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import { Provider } from "react-redux";
 import { useStore } from "../store";
+import "../styles/globals.css";
 
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { persistStore } from "redux-persist";
