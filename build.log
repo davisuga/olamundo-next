@@ -1,0 +1,151 @@
+
+> olamundo-next@0.1.0 build /Users/usuario/gits/olamundo-next
+> next build
+
+Loaded env from /Users/usuario/gits/olamundo-next/.env.local
+info  - Creating an optimized production build...
+info  - Using external babel configuration from /Users/usuario/gits/olamundo-next/.babelrc
+info  - Compiled successfully
+info  - Collecting page data...
+
+worlds:  [
+  { id: 2, name: 'Mundo 1' },
+  { id: 3, name: 'Mundo 2' },
+  { id: 4, name: 'Mundo 3' }
+]
+exercises:  [
+  {
+    id: 18,
+    title: 'Arrays',
+    description: '',
+    url: 'arrays',
+    worldId: 4
+  },
+  {
+    id: 19,
+    title: 'Funcoes',
+    description: '',
+    url: 'funcoes',
+    worldId: 4
+  },
+  {
+    id: 15,
+    title: 'Objetos',
+    description: '',
+    url: 'objetos',
+    worldId: 4
+  },
+  {
+    id: 16,
+    title: 'Operadores',
+    description: '',
+    url: 'operadores',
+    worldId: 3
+  },
+  {
+    id: 11,
+    title: 'O que é programação',
+    description: '',
+    url: 'o_que_e_programacao',
+    worldId: 2
+  },
+  {
+    id: 12,
+    title: 'O que é uma linguagem de programação?',
+    description: '',
+    url: 'o_que_e_uma_linguagem_de_programacao',
+    worldId: 2
+  },
+  {
+    id: 17,
+    title: 'Strings',
+    description: '',
+    url: 'strings',
+    worldId: 3
+  },
+  {
+    id: 14,
+    title: 'Tipos de dados',
+    description: '',
+    url: 'tipos_de_dados',
+    worldId: 3
+  },
+  {
+    id: 13,
+    title: 'Variáveis',
+    description: '',
+    url: 'variaveis',
+    worldId: 2
+  }
+]
+lessons:  [
+  {
+    id: 18,
+    title: 'Arrays',
+    description: '',
+    url: 'arrays',
+    worldId: 4
+  },
+  {
+    id: 19,
+    title: 'Funcoes',
+    description: '',
+    url: 'funcoes',
+    worldId: 4
+  },
+  {
+    id: 15,
+    title: 'Objetos',
+    description: '',
+    url: 'objetos',
+    worldId: 4
+  },
+  {
+    id: 16,
+    title: 'Operadores',
+    description: '',
+    url: 'operadores',
+    worldId: 3
+  },
+  {
+    id: 11,
+    title: 'O que é programação',
+    description: '',
+    url: 'o_que_e_programacao',
+    worldId: 2
+  },
+  {
+    id: 12,
+    title: 'O que é uma linguagem de programação?',
+    description: '',
+    url: 'o_que_e_uma_linguagem_de_programacao',
+    worldId: 2
+  },
+  {
+    id: 17,
+    title: 'Strings',
+    description: '',
+    url: 'strings',
+    worldId: 3
+  },
+  {
+    id: 14,
+    title: 'Tipos de dados',
+    description: '',
+    url: 'tipos_de_dados',
+    worldId: 3
+  },
+  {
+    id: 13,
+    title: 'Variáveis',
+    description: '',
+    url: 'variaveis',
+    worldId: 2
+  }
+]
+info  - Generating static pages (0/27)
+info  - Generating static pages (6/27)
+info  - Generating static pages (13/27)
+info  - Generating static pages (20/27)
+info  - Generating static pages (27/27)
+ ERROR  Command failed with exit code 1.

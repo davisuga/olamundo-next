@@ -1,0 +1,5 @@
+
+> olamundo-next@0.1.0 build /Users/usuario/gits/olamundo-next
+> next build "build.log"
+
+ ERROR  Command failed with exit code 1.
