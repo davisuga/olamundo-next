@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Input from "../../../components/Input";
 import api from "../../../services/axios";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { Box, Button, Heading, Flex } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { Lesson } from "@prisma/client";
 import MotionBox from "../../../components/MotionBox";
-
+import sortObjectArray from "../../../utils/sortObjArray";
 type Props = {
   lessons: Lesson[];
 };
@@ -16,12 +16,16 @@ type Props = {
 function Lessons({ lessons }: Props) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const lessonsIds = lessons.map((lesson) => lesson.id);
+  const lessonsIds = useMemo(() => lessons.map((lesson) => lesson.id), lessons);
+  const worldToNavigate = useMemo(() => lessons[0].worldId, lessons);
+  const currentLesson = useSelector((state) => state.currentLesson);
+
   useEffect(() => {
     dispatch({ type: "SET_LESSONS", lessons: lessonsIds });
     dispatch({ type: "SET_WORLD", world: lessons[0].worldId });
   }, []);
-  console.log("lessons inside the component: ", lessons);
+  console.log("lessons inside the component: ", lessonsIds);
+
   return (
     <div>
       <Heading textAlign="center" alignSelf="center" size="xl">
@@ -35,13 +39,20 @@ function Lessons({ lessons }: Props) {
       >
         {lessons &&
           lessons.map((lesson) => {
+            const lessonIndex = lessonsIds.indexOf(lesson.id);
+            const currentLessonIndex =
+              lessonsIds.indexOf(currentLesson) == -1
+                ? 1
+                : lessonsIds.indexOf(currentLesson);
+            const isAllowed = lessonIndex <= currentLessonIndex;
+            const lessonToNavigate = lesson.id;
             return (
               <Link
                 href={{
                   pathname: "/worlds/[world]/lessons/[lesson]",
                   query: {
-                    world: lessons[0].worldId,
-                    lesson: lesson.id,
+                    world: worldToNavigate,
+                    lesson: lessonToNavigate,
                   },
                 }}
               >
@@ -56,14 +67,16 @@ function Lessons({ lessons }: Props) {
                   borderWidth="1px"
                   borderRadius="lg"
                   boxShadow="lg"
-                  bg="blue.500"
+                  bg={isAllowed ? "blue.500" : "blue.900"}
                   key={lesson.id}
                   _hover={{
                     bg: "white",
                     color: "blue.500",
                   }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={isAllowed && { scale: 1.1 }}
+                  whileTap={isAllowed && { scale: 0.95 }}
+                  animate={isAllowed && { opacity: [0, 1] }}
+                  transition={isAllowed && { duration: 0.3 }}
                 >
                   {lesson.title}
                 </MotionBox>
@@ -74,7 +87,7 @@ function Lessons({ lessons }: Props) {
       <button
         onClick={(e) => {
           localStorage.setItem("logged", "false");
-          router.push("/");
+          router.replace("/");
         }}
       >
         Logout
@@ -85,10 +98,11 @@ function Lessons({ lessons }: Props) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   console.log("searching for lessons...");
-  const lessons = await api.get<Lesson>(`/world?id=${context.params.world}`);
-
-  return { props: { lessons: lessons.data, world: context.params.world } };
+  const lessons = await api.get<Lesson[]>(`/world?id=${context.params.world}`);
+  const lessonsData = sortObjectArray(lessons.data, "id");
+  return { props: { lessons: lessonsData, world: context.params.world } };
 };
+
 export const getStaticPaths = async (context) => {
   console.log();
   const res = await api.get("/world");

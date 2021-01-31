@@ -14,15 +14,18 @@ type Props = {
 
 function Worlds({ worlds }: Props) {
   const router = useRouter();
-  console.log("worlds inside the component: ", worlds);
-  //return <h1 >sass</h1>
   const dispatch = useDispatch();
+  const currentWorld: number = useSelector((state) => state.currentWorld);
+  const worldsIds = useSelector((state) => state.worlds);
   useEffect(() => {
-    const worldsIds = worlds.map((world) => world.id);
-    console.log(worldsIds);
+    // const worldsIds = worlds.map((world) => world.id);
+
     dispatch({ type: "SET_WORLDS", worlds: worldsIds });
   }, []);
+
   const colors = ["yellow.500", "green.500", "blue.500", "purple.500"];
+  const darkColors = ["yellow.900", "green.900", "blue.900", "purple.900"];
+
   return (
     <div>
       <Heading textAlign="center" alignSelf="center" size="xl">
@@ -36,14 +39,26 @@ function Worlds({ worlds }: Props) {
       >
         {worlds &&
           worlds.map((world) => {
+            const worldIndex = worldsIds.indexOf(world.id);
+            const currentWorldIndex =
+              worldsIds.indexOf(currentWorld) == -1
+                ? 1
+                : worldsIds.indexOf(currentWorld);
+            const isAllowed = worldIndex <= currentWorldIndex;
+            const backgroundColor = isAllowed
+              ? colors[worlds.indexOf(world)]
+              : darkColors[worlds.indexOf(world)];
+            const worldLink = isAllowed ? world.id : "";
+            const worldHref = worldsIds
+              ? `/worlds/${worldLink}`
+              : `/worlds/${world.id}`;
             return (
-              <Link href={"/worlds/" + world.id}>
+              <Link href={worldHref}>
                 <MotionBox
                   display="flex"
                   h={200}
                   w={["90%", 200]}
                   m={5}
-                  bg={colors[worlds.indexOf(world)]}
                   textAlign="center"
                   justifyContent="center"
                   alignItems="center"
@@ -51,8 +66,9 @@ function Worlds({ worlds }: Props) {
                   borderRadius="lg"
                   boxShadow="lg"
                   key={world.id}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
+                  bg={backgroundColor}
+                  whileHover={isAllowed && { scale: 1.1 }}
+                  whileTap={isAllowed && { scale: 0.95 }}
                 >
                   <Text fontWeight="bold" fontSize="2xl">
                     {world.name}
