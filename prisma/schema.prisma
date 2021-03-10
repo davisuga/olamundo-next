@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 datasource db {
   provider = "postgres"
-  url      = "postgresql://postgres:olamundo@localhost/postgres?schema=olamundo"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
