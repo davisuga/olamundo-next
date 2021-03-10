@@ -40,7 +40,6 @@ const ExercisePage = ({ exercises }: { exercises: Exercise[] }) => {
       router.push(`/worlds/${worldToNavigate}`);
     } else if (!isLastLesson && !isLastWorld) {
       const lessonToNavigate = lessons[lessons.indexOf(currentLesson) + 1];
-
       router.push(`/worlds/${currentWorld}/lessons/${lessonToNavigate}`);
     }
   };
@@ -154,17 +153,17 @@ const ExercisePage = ({ exercises }: { exercises: Exercise[] }) => {
       )}
 
       {allExercisesDone && exerciseDone && (
-        <Button colorScheme="teal" onClick={navigateToNextLesson}>
+        <Button m={2} colorScheme="teal" onClick={navigateToNextLesson}>
           PROXIMA LICAO
         </Button>
       )}
 
       {exerciseDone && !allExercisesDone ? (
-        <Button colorScheme="green" onClick={handleNextExercise}>
+        <Button m={2} colorScheme="green" onClick={handleNextExercise}>
           PROXIMO EXERCICIO
         </Button>
       ) : (
-        <Button onClick={() => checkResult(currentSelection)}>
+        <Button m={2} onClick={() => checkResult(currentSelection)}>
           CHECAR RESULTADO
         </Button>
       )}
