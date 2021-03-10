@@ -7,11 +7,11 @@ import storage from "redux-persist/lib/storage";
 let store;
 
 const initialState: InitialState = {
-  currentLesson: null,
-  currentWorld: null,
-  lessons: null,
-  worlds: null,
-  exercises: null,
+  currentLesson: 0,
+  currentWorld: 0,
+  lessons: [],
+  worlds: [],
+  exercises: [],
   isLastWorld: false,
   isLastLesson: false,
 };
