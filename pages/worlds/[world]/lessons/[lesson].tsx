@@ -1,7 +1,5 @@
 import { useRouter } from "next/router";
 import api from "../../../../services/axios";
-import ReactMarkdown from "react-markdown";
-import { NextButton } from "../../../../styles/pages/worlds";
 import Link from "next/link";
 import { getLesson } from "../../../../utils/getLessons";
 import { useEffect } from "react";
@@ -53,16 +51,24 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const res = await api.get<Lesson>(`/lesson?id=${params.lesson}`);
-  const lesson = res.data;
-  console.log("lesson inside getStaticProps :", lesson, params.world);
-  const { htmlContent } = getLesson(lesson.url);
+  const lessonId = params.lesson;
+
+  const lessonPromise = api.get<Lesson>(`/lesson?id=${params.lesson}`);
+  const exercisesPromise = api.get(`/exercise?lessonId=${lessonId}`);
+
+  const [lessonResponse, exercisesResponse] = await Promise.all([
+    lessonPromise,
+    exercisesPromise,
+  ]);
+
+  const lessonData = lessonResponse.data;
+  const exercises = exercisesResponse.data;
+
+  const { htmlContent } = getLesson(lessonData.url);
   const lessonWithContent = {
-    ...lesson,
+    ...lessonData,
     content: htmlContent,
   };
-  const exercisesRes = await api.get(`/exercise?lessonId=${lesson.id}`);
-  const exercises = exercisesRes.data;
 
   return { props: { lesson: lessonWithContent, exercises } };
 };
