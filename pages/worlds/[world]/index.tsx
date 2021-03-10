@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../../components/Input";
 import api from "../../../services/axios";
 import Link from "next/link";
@@ -16,15 +16,14 @@ type Props = {
 function Lessons({ lessons }: Props) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const lessonsIds = useMemo(() => lessons.map((lesson) => lesson.id), lessons);
-  const worldToNavigate = useMemo(() => lessons[0].worldId, lessons);
+  const lessonsIds = lessons.map((lesson) => lesson.id);
   const currentLesson = useSelector((state) => state.currentLesson);
 
   useEffect(() => {
     dispatch({ type: "SET_LESSONS", lessons: lessonsIds });
     dispatch({ type: "SET_WORLD", world: lessons[0].worldId });
   }, []);
-  console.log("lessons inside the component: ", lessonsIds);
+  console.log("lessons inside the component: ", lessons);
 
   return (
     <div>
@@ -45,14 +44,13 @@ function Lessons({ lessons }: Props) {
                 ? 1
                 : lessonsIds.indexOf(currentLesson);
             const isAllowed = lessonIndex <= currentLessonIndex;
-            const lessonToNavigate = lesson.id;
             return (
               <Link
                 href={{
-                  pathname: "/worlds/[world]/lessons/[lesson]",
+                  pathname: isAllowed ? "/worlds/[world]/lessons/[lesson]" : "",
                   query: {
-                    world: worldToNavigate,
-                    lesson: lessonToNavigate,
+                    world: lessons[0].worldId,
+                    lesson: lesson.id,
                   },
                 }}
               >
@@ -69,10 +67,12 @@ function Lessons({ lessons }: Props) {
                   boxShadow="lg"
                   bg={isAllowed ? "blue.500" : "blue.900"}
                   key={lesson.id}
-                  _hover={{
-                    bg: "white",
-                    color: "blue.500",
-                  }}
+                  _hover={
+                    isAllowed && {
+                      bg: "white",
+                      color: "blue.500",
+                    }
+                  }
                   whileHover={isAllowed && { scale: 1.1 }}
                   whileTap={isAllowed && { scale: 0.95 }}
                   animate={isAllowed && { opacity: [0, 1] }}
@@ -87,7 +87,7 @@ function Lessons({ lessons }: Props) {
       <button
         onClick={(e) => {
           localStorage.setItem("logged", "false");
-          router.replace("/");
+          router.push("/");
         }}
       >
         Logout
@@ -102,7 +102,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const lessonsData = sortObjectArray(lessons.data, "id");
   return { props: { lessons: lessonsData, world: context.params.world } };
 };
-
 export const getStaticPaths = async (context) => {
   console.log();
   const res = await api.get("/world");

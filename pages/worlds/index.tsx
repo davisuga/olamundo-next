@@ -18,8 +18,8 @@ function Worlds({ worlds }: Props) {
   const currentWorld: number = useSelector((state) => state.currentWorld);
   const worldsIds = useSelector((state) => state.worlds);
   useEffect(() => {
-    // const worldsIds = worlds.map((world) => world.id);
-
+    const worldsIds = worlds.map((world) => world.id);
+    console.log(worldsIds);
     dispatch({ type: "SET_WORLDS", worlds: worldsIds });
   }, []);
 
@@ -49,11 +49,9 @@ function Worlds({ worlds }: Props) {
               ? colors[worlds.indexOf(world)]
               : darkColors[worlds.indexOf(world)];
             const worldLink = isAllowed ? world.id : "";
-            const worldHref = worldsIds
-              ? `/worlds/${worldLink}`
-              : `/worlds/${world.id}`;
+
             return (
-              <Link href={worldHref}>
+              <Link href={"/worlds/" + worldLink}>
                 <MotionBox
                   display="flex"
                   h={200}
