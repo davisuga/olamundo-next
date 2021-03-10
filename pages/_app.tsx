@@ -11,7 +11,7 @@ const config = {
   useSystemColorMode: false,
   initialColorMode: "dark",
 };
-// 3. extend the theme
+// @ts-ignore
 const customTheme = extendTheme({ config });
 export default function App({ Component, pageProps }) {
   const store = useStore(pageProps.initialReduxState);
