@@ -4,16 +4,23 @@ import Form from "../components/LoginForm";
 import api from "../services/axios";
 import { Container, Content } from "../styles/pages/login";
 import { useRouter } from "next/router";
+import { useToast } from "@chakra-ui/react";
 
 function Login() {
   const router = useRouter();
+  const toast = useToast();
   const onSubmit = async (email, password) => {
     const theresEmailInDB = await api.get("user", { params: { email } });
-    alert(JSON.stringify(theresEmailInDB.data.length));
     if (theresEmailInDB.data.length == 1) {
       router.push("/worlds");
     } else {
-      alert("esse email não existe!");
+      toast({
+        title: "Esse email não existe!",
+        description: "Tente se cadastrar na plataforma primeiro.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
   return (
