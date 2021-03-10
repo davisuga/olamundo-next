@@ -27,7 +27,17 @@ function Worlds({ worlds }: Props) {
   const darkColors = ["yellow.900", "green.900", "blue.900", "purple.900"];
 
   return (
-    <div>
+    <Flex flexDir="column" alignItems="center">
+      <Button
+        onClick={(e) => {
+          localStorage.setItem("logged", "false");
+          router.push("/");
+        }}
+        alignSelf="flex-end"
+        m={4}
+      >
+        Logout
+      </Button>
       <Heading textAlign="center" alignSelf="center" size="xl">
         Mundos
       </Heading>
@@ -76,16 +86,7 @@ function Worlds({ worlds }: Props) {
             );
           })}
       </Flex>
-
-      <Button
-        onClick={(e) => {
-          localStorage.setItem("logged", "false");
-          router.push("/");
-        }}
-      >
-        Logout
-      </Button>
-    </div>
+    </Flex>
   );
 }
 

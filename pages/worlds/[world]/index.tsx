@@ -26,10 +26,20 @@ function Lessons({ lessons }: Props) {
   console.log("lessons inside the component: ", lessons);
 
   return (
-    <div>
+    <Flex flexDir="column">
+      <Button
+        onClick={(e) => {
+          localStorage.setItem("logged", "false");
+          router.push("/");
+        }}
+        alignSelf="flex-end"
+        m={4}
+      >
+        Logout
+      </Button>
       <Heading textAlign="center" alignSelf="center" size="xl">
         Licoes
-      </Heading>
+      </Heading>{" "}
       <Flex
         justifyContent="center"
         alignItems="center"
@@ -84,15 +94,7 @@ function Lessons({ lessons }: Props) {
             );
           })}
       </Flex>
-      <button
-        onClick={(e) => {
-          localStorage.setItem("logged", "false");
-          router.push("/");
-        }}
-      >
-        Logout
-      </button>
-    </div>
+    </Flex>
   );
 }
 
