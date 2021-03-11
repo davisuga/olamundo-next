@@ -48,7 +48,7 @@ function Worlds({ worlds }: Props) {
         flexWrap="wrap"
       >
         {worlds &&
-          worlds.map((world) => {
+          worlds.map((world, index) => {
             const worldIndex = worldsIds.indexOf(world.id);
             const currentWorldIndex =
               worldsIds.indexOf(currentWorld) == -1
@@ -61,7 +61,7 @@ function Worlds({ worlds }: Props) {
             const worldLink = isAllowed ? world.id : "";
 
             return (
-              <Link href={"/worlds/" + worldLink}>
+              <Link key={index} href={"/worlds/" + worldLink}>
                 <MotionBox
                   display="flex"
                   h={200}

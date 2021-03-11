@@ -39,7 +39,7 @@ function Lessons({ lessons }: Props) {
       </Button>
       <Heading textAlign="center" alignSelf="center" size="xl">
         Licoes
-      </Heading>{" "}
+      </Heading>
       <Flex
         justifyContent="center"
         alignItems="center"
@@ -47,7 +47,7 @@ function Lessons({ lessons }: Props) {
         flexDir="row"
       >
         {lessons &&
-          lessons.map((lesson) => {
+          lessons.map((lesson, index) => {
             const lessonIndex = lessonsIds.indexOf(lesson.id);
             const currentLessonIndex =
               lessonsIds.indexOf(currentLesson) == -1
@@ -63,6 +63,7 @@ function Lessons({ lessons }: Props) {
                     lesson: lesson.id,
                   },
                 }}
+                key={index}
               >
                 <MotionBox
                   display="flex"
@@ -104,6 +105,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const lessonsData = sortObjectArray(lessons.data, "id");
   return { props: { lessons: lessonsData, world: context.params.world } };
 };
+
 export const getStaticPaths = async (context) => {
   console.log();
   const res = await api.get("/world");
