@@ -31,7 +31,7 @@ const Lesson = ({ lesson, exercises }: LessonPage) => {
           },
         }}
       >
-        <Button>{exercises[0].title}</Button>
+        <Button>{exercises[0]?.title}</Button>
       </Link>
     </Box>
   );
