@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HeaderButton from "../components/HeaderButton";
 import Form from "../components/RegisterForm";
-import { Button } from "../components/RegisterForm/styles";
 import api from "../services/axios";
 import Header from "../components/Header";
 import { Container, Content, Presentation } from "../styles/pages/home";
@@ -16,10 +15,10 @@ function Home() {
       await api.post("progress", {
         user: { create: { email, password, name } },
       });
-      localStorage.setItem(
-        "userdata",
-        JSON.stringify({ email, password, name })
-      );
+      // localStorage.setItem(
+      //   "userdata",
+      //   JSON.stringify({ email, password, name })
+      // );
       router.push("/worlds");
     } catch (err) {
       toast({
