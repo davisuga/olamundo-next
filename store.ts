@@ -6,7 +6,7 @@ import storage from "redux-persist/lib/storage";
 
 let store;
 
-const initialState: InitialState = {
+export const initialState: InitialState = {
   currentLesson: 0,
   currentWorld: 0,
   lessons: [],

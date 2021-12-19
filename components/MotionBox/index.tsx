@@ -12,7 +12,7 @@ export type MotionBoxProps = Omit<ChakraProps, keyof MotionProps> &
     as?: React.ElementType;
   };
 // @ts-ignore
-export const MotionBox = motion.custom(
+export const MotionBox = motion(
   forwardRef<MotionBoxProps, "div">((props, ref) => {
     const chakraProps = Object.fromEntries(
       // do not pass framer props to DOM element

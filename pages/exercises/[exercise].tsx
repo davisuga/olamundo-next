@@ -130,8 +130,8 @@ const ExercisePage = ({ exercises }: { exercises: Exercise[] }) => {
           onChange={(e) => setCurrentSelection(e.toString())}
           value={currentSelection}
         >
-          {exercise?.choices.map((choice) => (
-            <div>
+          {exercise?.choices.map((choice, index) => (
+            <div key={index}>
               <Radio
                 m="3"
                 key={choice}

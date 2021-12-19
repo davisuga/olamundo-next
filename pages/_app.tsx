@@ -21,9 +21,7 @@ export default function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <ChakraProvider theme={customTheme}>
-        <PersistGate loading={<div>loading</div>} persistor={persistor}>
-          <Component {...pageProps} />
-        </PersistGate>
+        <Component {...pageProps} />
       </ChakraProvider>
     </Provider>
   );
